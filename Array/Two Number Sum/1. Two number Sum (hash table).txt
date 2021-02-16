@@ -1,0 +1,39 @@
+//TWO NUMBER SUM 
+//TIME COMPLEXITY - O(n)                                                                                     {n->size of array}
+//{why? since we are traversing the input array only once in the function "find_two_number" }
+//SPACE COMPLEXITY - O(n)
+//{why? since we are using extra space to store the array numbers }
+
+//PS : This mehtod is useful in the case where "Space" is less important as compared to "Time".
+//{how? since we are improving the time complexity (O(n^2) to O(n)) by compromising space complexity (O(1) to O(n))}
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+void find_two_number(int a[], int size, int sum)          // function to find the numbers in given arrray which add to the target sum 
+{
+    vector<pair<int,int>>ans;                             // vector to store resultant number pairs
+    unordered_set<int>s;                                  // set to store the elements of array
+    for(int i=0;i<size;i++)                               // traversing the array only once
+    {
+        if(s.find(sum-a[i])!=s.end())                     // if sum-a[i] is present in the set then we found our pair, this steps takes constant time complexity
+            ans.push_back({a[i],sum-a[i]});               // storing the resultant pair in the vector
+        else
+            s.insert(a[i]);                               // else pusing the a[i] in the set for future use
+    }
+    
+    cout<<"The result number which add to target sum are :"<<endl;           // printing the resultant numbers
+    for(int i=0;i<ans.size();i++)
+        cout<<ans[i].first<<" "<<ans[i].second<<endl;
+}
+
+int main() 
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int a[] = {3,5,-4,8,11,-1,1,6};            // input array
+    int sum = 10;                              // target sum
+    int size = sizeof(a)/sizeof(a[0]);         // calculating size of input array
+    find_two_number(a,size,sum);               // calling "find_two_number" function to find the result
+    return 0;
+}
