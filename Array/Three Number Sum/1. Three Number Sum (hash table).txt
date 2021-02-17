@@ -1,0 +1,47 @@
+//THREE NUMBER SUM 
+//TIME COMPLEXITY - O(n^2)                                                                                   {n->size of array}
+//{why? since we are using 2 nested fr loops in function "find_three_number" }
+//SPACE COMPLEXITY - O(n)
+//{why? since we are storing the array elements in the unordered set }
+
+//PS: This mehtod is useful in the case where "Space" is less important as compared to "Time".
+//{how? as time complexity is improved (O(n^3) to O(n^2)) at cost of space complexity which is deteriorated (O(1) to O(n)) }
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+void find_three_number(int a[], int size, int sum)          // function to find the numbers in given arrray which add to the target sum 
+{
+    vector<pair<int,pair<int,int>>>ans;                     // vector to store all the triplets 
+    unordered_set<int>s;                                    // set to store array elements
+    
+    for(int i=0;i<size-2;i++)                               // Fix the first element as a[i]
+    {
+        for(int j=i+1;j<size;j++)                           // Fix the second element as a[j]
+        {
+            if(s.find( sum-(a[i]+a[j]) )!=s.end())          // find if there is a elements in set which is equal to "sum-(a[i]+a[j])"
+                ans.push_back({sum-(a[i]+a[j]),{a[i],a[j]}});       
+            else
+                s.insert(a[j]);
+        }
+    }
+    
+    
+    for (int i=0; i<ans.size(); i++)                       // printing the resultant vector
+    { 
+        cout<<ans[i].first<<" "<<ans[i].second.first<<" "<<ans[i].second.second<<endl; 
+    } 
+    
+    
+}
+
+int main() 
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int a[] = {12,3,1,2,-6,5,-8,6};            // input array
+    int sum = 0;                               // target sum
+    int size = sizeof(a)/sizeof(a[0]);         // calculating size of input array
+    find_three_number(a,size,sum);               // calling "find_two_number" function to find the result
+    return 0;
+}
