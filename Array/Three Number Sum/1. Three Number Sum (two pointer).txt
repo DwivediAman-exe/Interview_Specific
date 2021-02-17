@@ -1,0 +1,55 @@
+//THREE NUMBER SUM 
+//TIME COMPLEXITY - O(n^2) + O(nlogn) = O(n^2)                                                                                  {n->size of array}
+//{why? since we are using 2 nested fr loops in function "find_three_number" }
+//SPACE COMPLEXITY - O(1)
+//{why? since we are not storing the array elements anywhere except few local variables which have constant size }
+
+//PS : This mehtod is useful in the case where "Space" and "Time" are equally important.
+//{how? since we are improving the time complexity (O(n^3) to O(n^2)) as well as we are having constant space complexity O(1) }
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+void find_three_number(int a[], int size, int sum)          // function to find the numbers in given arrray which add to the target sum 
+{
+    sort(a,a+size);                                         // sorting take O(nlogn) time
+    vector<pair<int,pair<int,int>>>ans;                     // vector to store all the triplets 
+    
+    for (int i=0;i<size-2;i++)                              // traversing the array 
+    {
+        int left = i+1;                                      // initializing the left and right pointers
+        int right = size-1;
+        while (left < right) 
+        {
+            int curr_sum = a[i] + a[left] + a[right];        // finding curr_sum and checking if it is equal to target sum
+            if(curr_sum == sum)
+            {
+                ans.push_back({a[i],{a[left],a[right]}});    // inserting the triplets in the resultant vector and incrementing the left pointer and decrementing the right
+                left++;                                   
+                right--;
+            } 
+            else if(curr_sum < sum)                         // if curr_sum is smaller than target sum then incrementing the left pointer
+                left++;
+            else if(curr_sum > sum)                         // if curr_sum is smaller than the target sum then decrementing the right pointer
+                right--;
+        }
+    }
+    
+    for (int i=0; i<ans.size(); i++)                       // printing the resultant vector
+    { 
+        cout<<ans[i].first<<" "<<ans[i].second.first<<" "<<ans[i].second.second<<endl; 
+    } 
+    
+    
+}
+
+int main() 
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int a[] = {12,3,1,2,-6,5,-8,6};            // input array
+    int sum = 0;                               // target sum
+    int size = sizeof(a)/sizeof(a[0]);         // calculating size of input array
+    find_three_number(a,size,sum);               // calling "find_two_number" function to find the result
+    return 0;
+}
