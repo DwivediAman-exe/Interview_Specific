@@ -4,6 +4,8 @@
 //SPACE COMPLEXITY - O(1)
 //{why? since we are not using any extra space to store the array numbers or anything else, except the result and few local variables which takes constant space }
 
+//This is the trivial method
+
 #include <bits/stdc++.h> 
 using namespace std; 
 
